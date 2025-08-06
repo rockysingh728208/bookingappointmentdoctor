@@ -79,7 +79,7 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   // const [token, setToken] = useState(true); 
 
-const {token,setToken}=useContext(AppContext)
+const {token,setToken,userData}=useContext(AppContext)
 
 const logout=()=>{
   setToken(false)
@@ -109,10 +109,10 @@ const logout=()=>{
       {/* Right side: Profile or Button */}
       <div className="flex items-center gap-4">
         {
-          token ? (
+          token && userData? (
             <div className="relative group cursor-pointer">
               <div className="flex items-center gap-2">
-                <img className="w-8 h-8 rounded-full" src={assets.profile_pic} alt="Profile" />
+                <img className="w-16 h-16 rounded-full" src={userData.image} alt="Profile" />
                 <img className="w-2.5" src={assets.dropdown_icon} alt="Dropdown" />
               </div>
               <div className="absolute top-10 right-0 hidden group-hover:block bg-slate-500 text-white rounded-md p-4 shadow-md z-20 w-40 space-y-2">

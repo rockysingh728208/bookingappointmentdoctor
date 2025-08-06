@@ -1,7 +1,8 @@
 import React, { useState,useContext } from 'react';
 import { AppContext } from './Appcontext';
-// import { assets } from '../assets/assets';
-
+import { assets } from '../assets/assets';
+import {toast} from 'react-toastify'
+import axios from 'axios'
 const MyProfile = () => {
   // const [userData, setUserData] = useState({
   //   name: 'Edward Vincent',
@@ -16,19 +17,84 @@ const MyProfile = () => {
   //   dob: '2006-08-20',
   // });
 
-const{userData,setUserData}=useContext(AppContext)
+const{userData,setUserData,token,backendUrl,loadUserProfileData}=useContext(AppContext)
   const [editMode, setEditMode] = useState(false);
+const [image,setImage]=useState(false)
+const updateUSerProfileData=async(req,res)=>{
+try {
+  const formData=new FormData()
+  formData.append('name',userData.name)
+  formData.append('phone',userData.phone)
+  formData.append('address',JSON.stringify(userData.address))
+    formData.append('gender',userData.gender)
+    formData.append('dob',userData.dob)
 
+image && formData.append('image',image)
+const {data}= await axios.post(backendUrl+'/api/user/update-profile',formData,{headers:{token}})
+
+if(data.success){
+  toast.success(data.message)
+  loadUserProfileData()
+  setEditMode(false)
+  setImage(false)
+}else{
+toast.error(data.message)
+}
+
+} catch (error) {
+  console.log(error)
+  toast.error(error.message)
+}
+}
   
   return userData && (
     <div className="max-w-2xl pt-20 p-6 bg-white shadow-md rounded-xl mx-auto">
       {/* Profile Header */}
       <div className="flex items-center gap-4 mb-6">
-        <img
+
+    
+{
+  editMode ? (
+    <label htmlFor='image' className="relative inline-block w-36 h-36">
+      <img
+        className='w-full h-full object-cover rounded-full border shadow'
+        src={image ? URL.createObjectURL(image) : userData.image}
+        alt="Profile Preview"
+      />
+
+      {/* Show upload icon only if no image is selected */}
+      {!image && (
+        <div className="absolute inset-0 bg-black bg-opacity-40 rounded-full flex items-center justify-center hover:bg-opacity-60 transition">
+          <img
+            className="w-10 h-10"
+            src={assets.upload_icon}
+            alt="Upload"
+          />
+        </div>
+      )}
+
+      <input
+        onChange={(e) => setImage(e.target.files[0])}
+        type="file"
+        id='image'
+        hidden
+      />
+    </label>
+  ) : (
+    <img
+      src={userData.image}
+      alt="Profile"
+      className="w-24 h-24 rounded-full object-cover border shadow"
+    />
+  )
+}
+
+
+        {/* <img
           src={userData.image}
           alt="Profile"
           className="w-24 h-24 rounded-full object-cover border shadow"
-        />
+        /> */}
         {editMode ? (
           <input
             type="text"
@@ -142,12 +208,18 @@ const{userData,setUserData}=useContext(AppContext)
 
       {/* Button */}
       <div className="text-left mt-6">
-        <button
-          onClick={() => setEditMode(!editMode)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow-md transition"
-        >
-          {editMode ? 'Save Information' : 'Edit Profile'}
-        </button>
+       <button
+  onClick={() => {
+    if (editMode) {
+      updateUSerProfileData();
+    } else {
+      setEditMode(true);
+    }
+  }}
+  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow-md transition"
+>
+  {editMode ? 'Save Information' : 'Edit Profile'}
+</button>
       </div>
     </div>
   );

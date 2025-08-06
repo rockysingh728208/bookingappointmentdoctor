@@ -30,14 +30,7 @@ else{
     }
 }
 
-const value={
-doctors,
-currencySymbol,
-token,
-setToken,
-backendUrl,
-userData,setUserData,loadUserProfileData
-}
+
 
 const getDoctorsData=async()=>{
     try {
@@ -53,6 +46,15 @@ setDoctors(data.doctors)
         toast.error(error.message)
     }
 }
+const value={
+doctors,getDoctorsData,
+currencySymbol,
+token,
+setToken,
+backendUrl,
+userData,setUserData,loadUserProfileData
+}
+
 
 
 useEffect(() => {

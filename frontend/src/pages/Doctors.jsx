@@ -31,8 +31,8 @@ const Doctors = () => {
           <div className="space-y-3 text-gray-600">
   <div className="space-y-3 text-gray-600">
   <div className="p-2 rounded hover:bg-blue-50 transition">
-    <p onClick={() => navigate(speciality === "General physician" ? "/doctors" : "/doctors/General physician")} className="cursor-pointer hover:text-blue-600 transition">
-      General physician
+    <p onClick={() => navigate(speciality === "General Physician" ? "/doctors" : "/doctors/General Physician")} className="cursor-pointer hover:text-blue-600 transition">
+      General Physician
     </p>
   </div>
 
@@ -49,8 +49,8 @@ const Doctors = () => {
   </div>
 
   <div className="p-2 rounded hover:bg-blue-50 transition">
-    <p onClick={() => navigate(speciality === "Pediatricians" ? "/doctors" : "/doctors/Pediatricians")} className="cursor-pointer hover:text-blue-600 transition">
-      Pediatricians
+    <p onClick={() => navigate(speciality === "Pediatrician" ? "/doctors" : "/doctors/Pediatrician")} className="cursor-pointer hover:text-blue-600 transition">
+      Pediatrician
     </p>
   </div>
 
