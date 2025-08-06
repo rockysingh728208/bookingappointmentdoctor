@@ -1,23 +1,26 @@
-import React, { useState } from 'react';
-import { assets } from '../assets/assets';
+import React, { useState,useContext } from 'react';
+import { AppContext } from './Appcontext';
+// import { assets } from '../assets/assets';
 
 const MyProfile = () => {
-  const [userData, setUserData] = useState({
-    name: 'Edward Vincent',
-    image: assets.profile_pic,
-    email: 'sagarkashyap9155@gmail.com',
-    phone: '+91 1234567890',
-    address: {
-      line1: '123 Main St',
-      line2: 'Apt 4B',
-    },
-    gender: 'Male',
-    dob: '2006-08-20',
-  });
+  // const [userData, setUserData] = useState({
+  //   name: 'Edward Vincent',
+  //   image: assets.profile_pic,
+  //   email: 'sagarkashyap9155@gmail.com',
+  //   phone: '+91 1234567890',
+  //   address: {
+  //     line1: '123 Main St',
+  //     line2: 'Apt 4B',
+  //   },
+  //   gender: 'Male',
+  //   dob: '2006-08-20',
+  // });
 
+const{userData,setUserData}=useContext(AppContext)
   const [editMode, setEditMode] = useState(false);
 
-  return (
+  
+  return userData && (
     <div className="max-w-2xl pt-20 p-6 bg-white shadow-md rounded-xl mx-auto">
       {/* Profile Header */}
       <div className="flex items-center gap-4 mb-6">

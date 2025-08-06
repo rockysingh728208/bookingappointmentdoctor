@@ -2,6 +2,9 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+
+  import { ToastContainer } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 import { Routes,Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
@@ -13,12 +16,14 @@ import MyProfile from './pages/MyProfile'
 import MyAppointment from './pages/MyAppointment'
 import Appointment from './pages/Appointment'
 import Footer from './components/Footer'
+
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
     <div>
+      <ToastContainer/>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

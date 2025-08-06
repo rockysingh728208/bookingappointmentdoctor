@@ -1,17 +1,56 @@
-import React, { useState } from 'react';
-
+import React, { useContext, useState } from 'react';
+import { AppContext } from './Appcontext';
+import axios from "axios"
+import {toast} from 'react-toastify'
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
+  const navigate=useNavigate()
   const [state, setState] = useState('Sign Up');
-  const [fullName, setFullName] = useState('');
+  const {backendUrl,token,setToken}=useContext(AppContext)
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log({ fullName, email, password, state });
+    console.log({ name, email, password, state });
 
     // Add your submit logic here
+try {
+  if(state==='Sign Up'){
+    const {data}=await axios.post(backendUrl+'/api/user/register',{name,password,email})
+    if(data.success){
+      localStorage.setItem('token',data.token)
+      setToken(data.token)
+    }else{
+      toast.error(data.message)
+    }
+  }
+  else{
+   const {data}=await axios.post(backendUrl+'/api/user/login',{password,email})
+    if(data.success){
+      localStorage.setItem('token',data.token)
+      setToken(data.token)
+    }else{
+      toast.error(data.message)
+    }
+  }
+
+
+} catch (error) {
+  toast.error(error.message)
+}
   };
+
+useEffect(() => {
+if(token){
+navigate('/')
+}
+
+}, [token])
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -34,8 +73,8 @@ const Login = () => {
             <input
               type="text"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
           </div>

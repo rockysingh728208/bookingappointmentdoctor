@@ -69,14 +69,22 @@
 // export default Navbar;
 
 
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
+import { AppContext } from '../pages/Appcontext';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
-  const [token, setToken] = useState(true); // Mock token state
+  // const [token, setToken] = useState(true); 
+
+const {token,setToken}=useContext(AppContext)
+
+const logout=()=>{
+  setToken(false)
+  localStorage.removeItem('token')
+}
 
   const handleLinkClick = (path) => {
     navigate(path);
@@ -110,7 +118,7 @@ const Navbar = () => {
               <div className="absolute top-10 right-0 hidden group-hover:block bg-slate-500 text-white rounded-md p-4 shadow-md z-20 w-40 space-y-2">
                 <p onClick={() => navigate("/my-profile")} className="hover:text-black cursor-pointer">My profile</p>
                 <p onClick={() => navigate("/my-appointments")} className="hover:text-black cursor-pointer">My appointments</p>
-                <p onClick={() => setToken(false)} className="hover:text-black cursor-pointer">Logout</p>
+                <p onClick={logout} className="hover:text-black cursor-pointer">Logout</p>
               </div>
             </div>
           ) : (
