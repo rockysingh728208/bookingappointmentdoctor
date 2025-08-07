@@ -16,7 +16,7 @@ const Login = () => {
     event.preventDefault();
     console.log({ name, email, password, state });
 
-    // Add your submit logic here
+  
 try {
   if(state==='Sign Up'){
     const {data}=await axios.post(backendUrl+'/api/user/register',{name,password,email})
@@ -49,7 +49,6 @@ useEffect(() => {
 if(token){
 navigate('/')
 }
-
 }, [token])
 
 
