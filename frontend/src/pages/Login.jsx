@@ -49,6 +49,7 @@ useEffect(() => {
 if(token){
 navigate('/')
 }
+
 }, [token])
 
 
