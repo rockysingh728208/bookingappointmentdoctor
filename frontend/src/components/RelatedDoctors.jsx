@@ -80,7 +80,7 @@ const RelatedDoctors = ({ speciality, docId }) => {
   return (
     <div className="px-6 py-10 bg-gray-50 mt-6">
       <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-blue-600">Top Doctors to Book</h1>
+        <h1 className="text-3xl font-bold text-blue-600">Related doctors to Book</h1>
         <p className="text-gray-600 mt-2">Simply browse through our extensive list of trusted doctors</p>
       </div>
 

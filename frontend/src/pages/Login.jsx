@@ -23,6 +23,7 @@ try {
     if(data.success){
       localStorage.setItem('token',data.token)
       setToken(data.token)
+      toast.success("User Registered Successfully")
     }else{
       toast.error(data.message)
     }
@@ -32,6 +33,7 @@ try {
     if(data.success){
       localStorage.setItem('token',data.token)
       setToken(data.token)
+         toast.success("User login Successfully")
     }else{
       toast.error(data.message)
     }
